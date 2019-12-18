@@ -1,0 +1,61 @@
+<h1 align="center">Datos personales</h1>
+<form [formGroup]="personasForm" (ngSubmit)="submitPersonasForm()" novalidate>
+    <div class="form-group container_column">
+        <mat-form-field appearance="outline">
+            <mat-label>Nombre:</mat-label>
+            <input matInput placeholder="Introduce el nombre" formControlName="nombre" #nombre id="nombre" name="nombre" minlength="3" required>
+            <mat-error *ngIf="nombre.minLength < 3">
+                El nombre debe tener más de 3 caracteres
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Apellidos:</mat-label>
+            <input matInput placeholder="Introduce los apellidos" formControlName="apellidos" #apellidos id="apellidos" name="apellidos" minlength="3" required>
+            <mat-error *ngIf="apellidos.minLength <3">
+                El apellido debe tener más de 3 caracteres
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Edad:</mat-label>
+            <input matInput placeholder="Introduce la edad" formControlName="edad" #edad id="edad" name="edad" min="0" max="125" required>
+            <mat-error *ngIf="edad < 0 || edad>125">
+                La edad debe estar entre 0 y 125
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>DNI:</mat-label>
+            <input matInput placeholder="Introduce el DNI" formControlName="dni" #dni required id="dni" name="dni" minlength="9"
+                   maxlength="9" required>
+            <mat-error *ngIf="dni.maxLength > 9 || dni.minLength < 9" >
+                El dni debe tener 9 caracteres
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+        <mat-label>Fecha de cumpleaños:</mat-label>
+        <input matInput placeholder="Introduce la fecha de cumpleaños" formControlName="cumpleanhos" #cumpleanhos id="cumpleanhos" name="cumpleanhos"
+               (dateChange)="formatDate($event)" [matDatepicker]="picker" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Color favorito:</mat-label>
+            <input matInput placeholder="Introduce el color favorito" formControlName="colorFav" #colorFav id="colorFav" name="colorFav" minlength="3" required>
+            <mat-error *ngIf="colorFav.minLength < 3">
+                El color debe tener 3 caracteres
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Sexo:</mat-label>
+            <mat-select formControlName="sexo" #sexo required>
+                <mat-option value="Hombre">Hombre</mat-option>
+                <mat-option value="Mujer">Mujer</mat-option>
+                <mat-option value="Otro">Otro</mat-option>
+                <mat-option value="No especificado">No especificado</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="wrapper">
+        <button class="button"  style="margin:5px;" mat-raised-button color="primary" [disabled]="personasForm.pristine || personasForm.invalid" type="submit">Agregar datos</button>
+        <button class="button" style="margin:5px;" mat-raised-button color="primary" (click)="close()">Cerrar</button>
+    </div>
+</form>
